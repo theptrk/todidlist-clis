@@ -69,8 +69,8 @@ This will be easier now that we have set up our path
 #!/bin/bash
 
 curl -L http://todidlist.com/api/dids/create -X POST --post302 \
--d api_access_token=<your_access_token> \
--d $0
+-d api_access_token=a7becac9_70a8_4659_a574_c49d083c4876 \
+-d did="$*"
 ```
 ### Step 2: Add executable permissions to it
 
