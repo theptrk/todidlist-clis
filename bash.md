@@ -1,7 +1,7 @@
 # todidlist with bash
 
 ## Getting dids
-### Step 1: create the bash script for "get"
+### Step 1: Create the bash script for "get"
 
 First lets create a single directory where we will store our scripts `~/s`
 
@@ -45,7 +45,7 @@ Now lets append our new directory to $PATH in `bash_profile` or your favorite st
 export PATH=$PATH:~/s
 ```
 
-### Step 4: try `didget` in your command line
+### Step 4: Try `didget` in your command line
 Now that scripts in your `~/s` directory will be executable, source your `bash_profile` if needed and run your new command
 
 ```bash
@@ -69,7 +69,7 @@ This will be easier now that we have set up our path
 #!/bin/bash
 
 curl -L http://todidlist.com/api/dids/create -X POST --post302 \
--d api_access_token=a7becac9_70a8_4659_a574_c49d083c4876 \
+-d api_access_token=your_access_token \
 -d did="$*"
 ```
 ### Step 2: Add executable permissions to it
