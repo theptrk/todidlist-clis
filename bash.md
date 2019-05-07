@@ -10,7 +10,7 @@ $ mkdir ~/s
 ```
 
 Next create a bash script in "~/s" (without an extension)
-`$ touch ~/s/didget`
+`$ touch ~/s/did`
 
 Get your access token from `todidlsit.com/profile` and add this to your new file
 ```bash
@@ -27,7 +27,7 @@ curl -L http://todidlist.com/api/dids/getrecent -X POST --post302 \
 ### Step 2: Add executable permissions to it
 
 ```bash
-$ chmod u+x didget
+$ chmod u+x did
 ```
 
 ### Step 3: Add this directory to your $PATH
@@ -45,12 +45,12 @@ Now lets append our new directory to $PATH in `bash_profile` or your favorite st
 export PATH=$PATH:~/s
 ```
 
-### Step 4: Try `didget` in your command line
+### Step 4: Try `did` in your command line
 Now that scripts in your `~/s` directory will be executable, source your `bash_profile` if needed and run your new command
 
 ```bash
 $ source ~/.bash_profile
-$ didget
+$ did
 
 # ====== DIDS DONE ======
 # 🚀 made my bed - 17 hours ago
@@ -59,30 +59,71 @@ $ didget
 
 ## Creating dids
 
-This will be easier now that we have set up our path
+Lets use the same executable and check if arguments have been passed in. 
 
-### Step 1: Create the bash script for "get"
+This way `$ did` will still retrieve the Dids but `$ did made my bed` will create the Did "made my bed"
 
-`$0` refers to the arguments you pass into this script
+### Step 1: Add an if else based on argument length with the 
 
-```bash
+```
 #!/bin/bash
 
-curl -L http://todidlist.com/api/dids/create -X POST --post302 \
--d api_access_token=your_access_token \
--d did="$*"
-```
-### Step 2: Add executable permissions to it
+if [ $# -eq 0 ] ; then
 
-`chmod u+x did`
+echo "Getting Recent Dids..."
+curl -L http://todidlist.com/api/dids/getrecent -X POST --post302 \
+-d api_access_token=<your_access_token>
+
+else
+
+# TODO in Step 2
+
+fi
+```
+
+### Step 2: Add logic that sends your command line arguments
+
+Here is the the else block that will send your "Create Did" request.
+
+```
+# ...
+else
+
+echo "Sending Dids..."
+curl -L http://todidlist.com/api/dids/create -X POST --post302 \
+-d api_access_token=<your_access_token> \
+-d did="$*"
+
+fi
+```
+
+`$*` refers to the arguments you pass into this script
 
 ### Step 3: Try `did` in your command line
 
 ```bash
-$ source ~/.bash_profile
 $ did I created my first bash script
 ```
 
+## TLDR
 
-* potential future improvements
-- create one single command that checks if arguments have been passed
+This is your final `did` file
+
+```
+#!/bin/bash
+
+if [ $# -eq 0 ] ; then
+
+echo "Getting Recent Dids..."
+curl -L http://todidlist.com/api/dids/getrecent -X POST --post302 \
+-d api_access_token=2b33a414_4c71_44a1_95bc_8fc8d09c8d8a
+
+else
+
+echo "Sending Dids..."
+curl -L http://todidlist.com/api/dids/create -X POST --post302 \
+-d api_access_token=2b33a414_4c71_44a1_95bc_8fc8d09c8d8a \
+-d did="$*"
+
+fi
+```
