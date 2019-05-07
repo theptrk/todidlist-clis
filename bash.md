@@ -63,7 +63,7 @@ Lets use the same executable and check if arguments have been passed in.
 
 This way `$ did` will still retrieve the Dids but `$ did made my bed` will create the Did "made my bed"
 
-### Step 1: Add an if else based on argument length with the 
+### Step 1: Add an if else block based on argument length 
 
 ```
 #!/bin/bash
